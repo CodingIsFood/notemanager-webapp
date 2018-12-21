@@ -1,0 +1,76 @@
+<head>
+  <title>Note Manager</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+
+  <nav class="red">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Note Manager</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          {{#if currentUser}}
+              <li class="nav-item">
+              <a class="waves-effect waves-light modal-trigger" href="#addModal">Add Note</a>
+              </li>
+          {{/if}}
+
+          <li class="nav-item">
+            {{> loginButtons}}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="container">
+    <h1>Latest Notes</h1>
+    {{#if currentUser}}
+      <ul class="collection">
+        {{#each notes}}
+        {{> note}}
+        {{/each}}
+      </ul>
+    {{else}}
+      <p>Please log in to manage notes</p>
+    {{/if}}
+  </div>
+
+  {{> addNote}}
+
+  <script>
+    $(document).ready(function(){
+      $('.modal').modal();
+    });
+  </script>
+  <!--<script type="text/javascript">
+     document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.modal');
+      var instances = M.Modal.init(elems, options);
+    });
+  </script> -->
+</body>
+
+<template name="note">
+  <li class="collection-item">
+    {{text}}: <strong>added by {{username}}</strong>
+    <a href="#" class="delete-note secondary-content">
+      <i class="material-icons">close</i>
+    </a>
+  </li>
+</template>
+
+<template name="addNote">
+  <!-- Modal Structure -->
+  <div id="addModal" class="modal">
+    <div class="modal-content">
+      <h3>Add Note</h3>
+      <form class="add-form">
+       <input type="text" name="text" placeholder="add note ...">
+      </form>
+    </div>
+  </div>
+</template>
+
